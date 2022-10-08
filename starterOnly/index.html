@@ -60,7 +60,6 @@
               name="reserve"
               action="index.html"
               method="get"
-              onsubmit="return validate();"
             >
               <div
                 class="formData" data-error="Le prénom doit comporter au moins deux caractères !" data-error-visible="false">
@@ -117,13 +116,14 @@
               </div>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
-                class="formData" data-error="Veuillez sélectionner un lieu de tournoi !" data-error-visible="false">
+                class="formData" id="checkboxes" data-error="Veuillez sélectionner un lieu de tournoi !" data-error-visible="false">
                 <input
                   class="checkbox-input"
                   type="radio"
                   id="location1"
                   name="location"
                   value="New York"
+                  checked
                 />
                 <label class="checkbox-label" for="location1">
                   <span class="checkbox-icon"></span>
