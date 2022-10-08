@@ -28,10 +28,9 @@ quantity.addEventListener("input", (e) => {
 })
 
 // Reset form field validation whenever user focuses out
-if (modalbg.style.display == "block") {
-  formData.forEach((div) => { div.addEventListener("focusout", () => 
-  { validate(div) })})
-}
+formData.forEach((div) => { div.addEventListener("focusout", () => 
+  { validateField(div) })
+})
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -46,7 +45,7 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
-// validate form data
+// validate form data for each field (except radio buttons)
 function validateField(div) {
   div.setAttribute("data-error-visible", "false");
   if (div.querySelector("input").validity.valid) {
@@ -57,7 +56,7 @@ function validateField(div) {
   }
 }
 
-// validate formData that contains radio buttons by checking if one is checked
+// validate form data for radio buttons by checking if one is checked
 function validateRadioButtons() {
   checkboxes.setAttribute("data-error-visible", "false");
   if (checkboxes.querySelector("input:checked")) {
@@ -68,14 +67,14 @@ function validateRadioButtons() {
   }
 }
 
-// get URL parameters
+// get URL parameters for welcome message display
 function getURLParameter(name) {
   return decodeURI(
     (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]
   );
 }
 
-// validate form data
+// validate form data, parent function
 function validate() {
   let valid = true;
   formData.forEach((div) => {
@@ -90,5 +89,13 @@ function submitModal() {
   if (validate()) {
     alert(`Bienvenue ${getURLParameter("first")} ${getURLParameter("last")} ! Votre réservation a été reçue.`);
     closeModal();
+  } else {
+    // If no radio button is checked, prevents self default behavior by not submitting the form,
+    // because the radio buttons field cannot be set as required in HTML but it is.
+    // This shouldn't happen since there's a default value, but it prevents devtools workarounds.
+    if (!validateRadioButtons()) {
+      self.addEventListener("submit", (e) => {e.preventDefault() })
+      alert("Vous devez obligatoirement sélectionner un tournoi !");
+    }
   }
 }
