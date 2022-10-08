@@ -15,17 +15,23 @@ const formData = document.querySelectorAll(".formData");
 // prevents from picking a date after today, sorry time travelers you can't register
 birthdate.max = new Date().toISOString().split("T")[0];
 
-// Eliminates non-digit characters for quantity input
-['keypress','paste','focusout'].forEach(e=>quantity.addEventListener(e,()=>{
-quantity.value = quantity.value.replace(/\D/g,'')
-if (quantity.value == "" && e == "focusout")
-  quantity.value = "0" 
-end
-}, false));
+// catch all inputs for quantity and only allow digits to be entered
+quantity.addEventListener("beforeinput", (e) => {
+  if (e.data && !/^[0-9]*$/.test(e.data)) {
+    e.preventDefault();
+  }
+})
 
-// Reset form field if shown error message and user clicks on it
-formData.forEach((div) => { div.addEventListener("click", () => 
-{ div.setAttribute("data-error-visible", "false"); }); });
+// prevents quantity from being over 99
+quantity.addEventListener("input", (e) => {
+  if (e.target.value > 99) {
+    e.target.value = 99;
+  }
+})
+
+// Reset form field validation whenever user focuses out
+formData.forEach((div) => { div.addEventListener("focusout", () => 
+{ validate(div) })})
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -40,14 +46,23 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
+// validate form data
+function validate(div) {
+  div.setAttribute("data-error-visible", "false");
+  if (div.querySelector("input").validity.valid) {
+    return true;
+  } else {
+    div.setAttribute("data-error-visible", "true");
+    return false;
+  }
+}
+
 // validate formData that contains radio buttons by checking if one is checked
 function validateRadioButtons() {
   let valid = false;
   let radioButtons = document.querySelectorAll("input[type=radio]");
   radioButtons.forEach((radioButton) => {
-    if (radioButton.checked) {
-      valid = true;
-    }
+    if (radioButton.checked) { valid = true }
   });
   return valid;
 }
@@ -56,11 +71,9 @@ function validateRadioButtons() {
 function submitModal() {
   var valid = true;
   formData.forEach((div) => {
-    if (!div.querySelector("input").validity.valid || !validateRadioButtons()) {
-      div.setAttribute("data-error-visible", "true");
-      valid = false;
-    }
+    valid = validate(div) && valid;
   });
+  valid = validateRadioButtons() && valid;
   if (valid) {
     closeModal();
   }
