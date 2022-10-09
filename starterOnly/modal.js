@@ -10,6 +10,7 @@ function editNav() {
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
+const modalSubmit = document.querySelector(".btn-submit");
 const formData = document.querySelectorAll(".formData");
 
 // prevents from picking a date after today, sorry time travelers you can't register
@@ -43,6 +44,33 @@ function launchModal() {
 // close modal form
 function closeModal() {
   modalbg.style.display = "none";
+}
+
+// find form and submit
+function sendForm() {
+  const form = document.querySelector("form");
+  form.submit();
+}
+
+// launch modal validation
+function validateModal() {
+  // hide and put aside form
+  formData.forEach((div) => { 
+    div.style.opacity = 0;
+    div.style.position = "relative";
+    div.style.zIndex = -1;
+    div.disabled = true;
+  })
+  document.querySelector(".text-label").style.opacity = 0;
+  // display welcome message
+  document.querySelector(".welcome").style.zIndex = 1;
+  document.querySelector(".welcome").style.opacity = 1;
+  // Replace validation button with actual submit button
+  modalSubmit.value = "Fermer";
+  modalSubmit.onclick = sendForm;
+  // form is sent after 5 seconds whether user clicks or not,
+  // and even if the user clicks on the close button.
+  setTimeout(sendForm, 5000);
 }
 
 // validate form data for each field (except radio buttons)
@@ -84,18 +112,7 @@ function validate() {
   return valid;
 }
 
-// submit modal form
+// submit modal form if everything is valid
 function submitModal() {
-  if (validate()) {
-    alert(`Bienvenue ${getURLParameter("first")} ${getURLParameter("last")} ! Votre réservation a été reçue.`);
-    closeModal();
-  } else {
-    // If no radio button is checked, prevents self default behavior by not submitting the form,
-    // because the radio buttons field cannot be set as required in HTML but it is.
-    // This shouldn't happen since there's a default value, but it prevents devtools workarounds.
-    if (!validateRadioButtons()) {
-      self.addEventListener("submit", (e) => {e.preventDefault() })
-      alert("Vous devez obligatoirement sélectionner un tournoi !");
-    }
-  }
+  if (validate()) { validateModal() }
 }
