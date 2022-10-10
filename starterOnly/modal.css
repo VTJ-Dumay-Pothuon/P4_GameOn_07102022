@@ -17,6 +17,7 @@ body {
   background-image: url("background.png");
   font-family: var(--font-default);
   font-size: 18px;
+  min-width: 320px;
   max-width: 1300px;
   margin: 0 auto;
 }
@@ -69,6 +70,10 @@ img {
 }
 
 @media screen and (max-width: 768px) {
+  .header-logo img {
+    max-width: 50%;
+    padding-left: 30px;
+  }
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
@@ -92,12 +97,18 @@ img {
 
 
 
- @media screen and (max-width: 540px) {
+ @media screen and (max-width: 768px) {
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
     display: block;
     margin-top: -15px;
+  }
+
+  @media screen and (max-width: 374px) {
+    .topnav {
+      display: inline-flex;
+    }
   }
 } 
 
@@ -199,7 +210,6 @@ main {
 }
 
 .welcome-message {
-  font-family: "DM Sans";
   font-weight: 400;
   line-height: 140%;
 }
@@ -492,6 +502,12 @@ footer {
   margin: 0 20px;
 }
 @media screen and (max-width: 800px) {
+  .topnav {
+    margin-top: 8%;
+  }
+  .topnav a {
+    color : #FF001B;
+  }
   .hero-section {
     display: block;
     box-shadow: unset;
@@ -499,7 +515,8 @@ footer {
   .hero-content {
     background: #fff;
     color: #000;
-    padding: 20px;
+    padding: 0;
+    min-width: unset;
   }
   .hero-content::after {
     content: unset;
@@ -508,12 +525,12 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
-    white-space: normal;
+    font-size: 9.6vw;
+    font-weight: bold;
   }
   .hero-text {
     width: unset;
-    font-size: 1.5rem;
+    font-size: 3.4vw;
   }
   .hero-img img {
     border-radius: 10px;
@@ -527,6 +544,12 @@ footer {
   .copyrights {
     margin-top: 50px;
     text-align: center;
+  }
+}
+
+@media screen and (min-width: 800px) and (max-width: 975px) {
+  .hero-headline {
+    font-size: 5rem;
   }
 }
 
