@@ -14,7 +14,7 @@
   <body>
     <div class="topnav" id="myTopnav">
       <div class="header-logo">
-      <img alt="logo" src="Logo.png" width="auto" height="auto" />
+      <img alt="logo" src="Logo.png" />
     </div>
     <div class="main-navbar">
       
@@ -26,7 +26,6 @@
       <a href="javascript:void(0);" class="icon" onclick="editNav()">
         <i class="fa fa-bars"></i>
       </a>
-    </div>
     </div>
   </div>
     <main>
@@ -112,7 +111,7 @@
                 class="formData" data-error="Vous devez spécifier un nombre !" data-error-visible="false">
                 <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
                 <input type="number" class="text-control" id="quantity" name="quantity"
-                min="0" max="99" value="0" pattern="[0-9]+" required>
+                min="0" max="99" value="0" required>
               </div>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
@@ -209,13 +208,12 @@
               <input
                 class="btn-submit"
                 type="button"
-                class="button"
                 value="C'est parti"
                 onclick="submitModal()"
               />
             </form>
             <div class="welcome">
-              <h1 class="welcome-message">Merci pour<br/>votre inscription</h2>
+              <h1 class="welcome-message">Merci pour<br/>votre inscription</h1>
             </div>
           </div>
         </div>

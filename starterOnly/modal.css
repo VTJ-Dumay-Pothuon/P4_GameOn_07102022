@@ -17,7 +17,7 @@ body {
   background-image: url("background.png");
   font-family: var(--font-default);
   font-size: 18px;
-  min-width: 320px;
+  min-width: 210px;
   max-width: 1300px;
   margin: 0 auto;
 }
@@ -37,6 +37,11 @@ img {
 }
 .header-logo {
     float: left;
+}
+.header-logo img {
+  min-width: 150px;
+  width: 25vw;
+  max-width: 266px;
 }
 .main-navbar {
     float: right;
@@ -459,15 +464,19 @@ footer {
   margin: 0 20px;
 }
 
-
+@media screen and (max-width: 320px) {
+  .hero-headline {
+    white-space: normal;
+  }
+}
 @media screen and (max-width: 374px) {
   .topnav {
     display: inline-flex;
+    justify-content: space-between;
   }
 }
 @media screen and (max-width: 768px) {
   .header-logo img {
-    max-width: 50%;
     padding-left: 30px;
   }
   .topnav.responsive {position: relative;}
