@@ -40,6 +40,10 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  if (window.matchMedia("(max-width: 800px)").matches) {
+    window.scrollTo(0, 0);
+  }
+  document.body.style.overflow = "hidden";
 }
 
 // set close modal button as an event listener
@@ -49,6 +53,7 @@ closeButton.addEventListener("click", (e) => { closeModal() })
 // close modal form
 function closeModal() {
   modalbg.style.display = "none";
+  document.body.style.overflow = "auto";
 }
 
 // find form and submit
