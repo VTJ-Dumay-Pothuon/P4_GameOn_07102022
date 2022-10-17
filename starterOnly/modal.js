@@ -12,6 +12,7 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const modalSubmit = document.querySelector(".btn-submit");
 const formData = document.querySelectorAll(".formData");
+const closeButton = document.querySelector(".close");
 
 // prevents from picking a date after today, sorry time travelers you can't register
 birthdate.max = new Date().toISOString().split("T")[0];
@@ -41,6 +42,10 @@ function launchModal() {
   modalbg.style.display = "block";
 }
 
+// set close modal button as an event listener
+// so that its function can be replaced later
+closeButton.addEventListener("click", (e) => { closeModal() })
+
 // close modal form
 function closeModal() {
   modalbg.style.display = "none";
@@ -68,9 +73,7 @@ function validateModal() {
   // Replace validation button with actual submit button
   modalSubmit.value = "Fermer";
   modalSubmit.onclick = sendForm;
-  // form is sent after 5 seconds whether user clicks or not,
-  // and even if the user clicks on the close button.
-  setTimeout(sendForm, 5000);
+  closeButton.addEventListener("click", (e) => { sendForm() })
 }
 
 // validate form data for each field (except radio buttons)
@@ -114,5 +117,11 @@ function validate() {
 
 // submit modal form if everything is valid
 function submitModal() {
+  self.addEventListener("submit", (e) => { 
+    // this prevents the form from being sent before confirmation message
+    e.preventDefault()
+    // this removes the event listener almost immediately
+    setTimeout(this.removeEventListener("submit", arguments.callee), 100);
+  });
   if (validate()) { validateModal() }
 }
