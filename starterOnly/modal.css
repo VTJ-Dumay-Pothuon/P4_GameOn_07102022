@@ -475,6 +475,17 @@ footer {
     justify-content: space-between;
   }
 }
+@media screen and (max-width: 410px) {
+  .modal-body .formData[data-error]:nth-child(8)::after {
+    display: inline-block;
+    margin-bottom: 10%;
+    vertical-align: text-bottom;
+    margin-top: 2px;
+  }
+  .formData[data-error]:nth-child(7)::after {
+    display: inline-block;
+  }
+}
 @media screen and (max-width: 768px) {
   .header-logo img {
     padding-left: 30px;
@@ -555,6 +566,9 @@ footer {
     padding: 6px 35px;
     font-size: 14px;
   }
+  .modal-body {
+    margin-bottom: 0;
+  }
   .formData {
     margin: -14px auto;
   }
@@ -564,6 +578,22 @@ footer {
   }
   .formData:nth-child(5) label, .text-label {
     font-size: 12px;
+  }
+  .formData[data-error]::after {
+    text-align: right;
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+  .formData[data-error]:nth-child(5)::after {
+    margin-bottom: 16px;
+  }
+  .formData[data-error]:nth-child(7)::after {
+    margin-top: -18px;
+    height: 24px;
+  }
+  .formData[data-error]:nth-child(8)::after {
+    margin-top: -10%;
+    margin-bottom: 15%; 
   }
   .text-label {
     margin: 12px auto;
@@ -579,6 +609,12 @@ footer {
   .formData input {
     font-size: 18px;
     height: 40px;
+  }
+  .welcome {
+    top: 32%;
+  }
+  .welcome-message {
+    font-size: revert;
   }
   .copyrights {
     margin: 10px;
