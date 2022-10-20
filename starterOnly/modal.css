@@ -611,10 +611,10 @@ footer {
     height: 40px;
   }
   .welcome {
-    top: 32%;
+    top: 35%;
   }
   .welcome-message {
-    font-size: revert;
+    font-size: 155%;
   }
   .copyrights {
     margin: 10px;
