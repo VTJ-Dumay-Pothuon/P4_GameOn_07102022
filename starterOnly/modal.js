@@ -30,7 +30,7 @@ quantity.addEventListener("input", (e) => {
 })
 
 // Reset form field validation whenever user focuses out
-formData.forEach((div) => { div.addEventListener("focusout", () => 
+formData.forEach((div) => { div.addEventListener("change", () => 
   { validateField(div) })
 })
 
